@@ -1,0 +1,29 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserAction {
+  action    EnumUserActionAction?
+  createdAt DateTime              @default(now())
+  id        String                @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String?
+  updatedAt DateTime              @updatedAt
+}
+
+model AnalyticsRecord {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  likes     Int?
+  postId    String?
+  updatedAt DateTime @updatedAt
+  views     Int?
+}
+
+enum EnumUserActionAction {
+  Option1
+}
